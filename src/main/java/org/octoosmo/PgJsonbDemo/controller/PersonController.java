@@ -7,14 +7,22 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.octoosmo.PgJsonbDemo.mapper.PersonMapper;
+import org.octoosmo.PgJsonbDemo.model.Person;
 import org.octoosmo.PgJsonbDemo.request.PersonCreateRequest;
+import org.octoosmo.PgJsonbDemo.request.PersonSearchRequest;
 import org.octoosmo.PgJsonbDemo.request.PersonUpdateRequest;
 import org.octoosmo.PgJsonbDemo.response.PersonResponse;
 import org.octoosmo.PgJsonbDemo.service.PersonService;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -84,6 +92,55 @@ public class PersonController {
         return PersonMapper.INSTANCE.personToPersonResponse(person);
     }
 
+    @PostMapping("/search")
+    @Operation(summary = "Searches for a person",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(schema = @Schema(implementation = PersonSearchRequest.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Person search request",
+                                            value = """
+                                                    {
+                                                      "ids": ["16b3ff48-5891-43a7-abf1-ff194f22106d"],
+                                                      "names":["Alex"],
+                                                      "emails":["alex@mail.com"],
+                                                      "addresses":["street"],
+                                                      "phones":["+0123456789"],
+                                                      "custom_attributes_json":{
+                                                        "additionalProp1":{"inner1":"value1"},
+                                                        "additionalProp2":{},
+                                                        "additionalProp3":{}
+                                                      }
+                                                    }
+                                                    """)
+                            }
+                    ),
+                    description = "person search request"
+            ),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Person has been found.",
+                            content = @Content(schema = @Schema(implementation = PersonResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Validation error",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "User is not authenticated",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "User is not allowed to create person",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            })
+    public ResponseEntity<List<Person>> search(
+            @RequestBody
+            PersonSearchRequest personSearchRequest,
+            @SortDefault.SortDefaults({@SortDefault(sort = "name", direction = Sort.Direction.DESC)})
+            @ParameterObject
+            Pageable pageable) {
+        var personPage = personService.search(personSearchRequest, pageable);
+        if (personPage.getNumber() + 1 < personPage.getTotalPages()) {
+            return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(personPage.getContent());
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(personPage.getContent());
+        }
+    }
+
     @PutMapping("/{id}")
     @Operation(summary = "Rewrites person",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -118,8 +175,7 @@ public class PersonController {
                     @ApiResponse(responseCode = "403", description = "User is not allowed to create person",
                             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
             })
-    public PersonResponse update(@RequestBody PersonUpdateRequest request, @PathVariable UUID id)
-            throws InvocationTargetException, IllegalAccessException {
+    public PersonResponse update(@RequestBody PersonUpdateRequest request, @PathVariable UUID id) {
         var person = PersonMapper.INSTANCE.personUpdateRequestToPerson(request).withId(id);
         person = personService.update(person);
         return PersonMapper.INSTANCE.personToPersonResponse(person);
