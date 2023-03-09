@@ -23,6 +23,8 @@ dependencies {
     // Jsonb support
     implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
     implementation("com.fasterxml.jackson.module:jackson-module-jakarta-xmlbind-annotations:2.14.2")
+    // Json support
+    implementation("org.json:json:20230227")
     // Record builder
     annotationProcessor("io.soabase.record-builder:record-builder-processor:35")
     compileOnly("io.soabase.record-builder:record-builder-core:35")

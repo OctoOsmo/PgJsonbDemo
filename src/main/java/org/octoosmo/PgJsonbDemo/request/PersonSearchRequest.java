@@ -10,6 +10,7 @@ public record PersonSearchRequest(
         List<String> emails,
         List<String> addresses,
         List<String> phones,
-        Map<String, Object> custom_attributes_json
+        Map<String, Object> custom_attributes_json,
+        List<Map<String, Object>> custom_attributes_jsons
 ) {
 }

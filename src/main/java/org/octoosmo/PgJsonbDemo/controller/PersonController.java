@@ -67,9 +67,7 @@ public class PersonController {
                                                       "address":"street",
                                                       "phone":"+0123456789",
                                                       "custom_attributes_json":{
-                                                        "additionalProp1":{"inner1":"value1"},
-                                                        "additionalProp2":{},
-                                                        "additionalProp3":{}
+                                                        "favoriteHotels": ["Marriott", "Hilton", "Wyndham", "Choice"]
                                                       }
                                                     }
                                                     """)
@@ -106,11 +104,21 @@ public class PersonController {
                                                       "emails":["alex@mail.com"],
                                                       "addresses":["street"],
                                                       "phones":["+0123456789"],
-                                                      "custom_attributes_json":{
-                                                        "additionalProp1":{"inner1":"value1"},
-                                                        "additionalProp2":{},
-                                                        "additionalProp3":{}
+                                                      "custom_attributes_json": {
+                                                        "isPremium": true
+                                                      },
+                                                      "custom_attributes_jsons": [
+                                                      {
+                                                        "favoriteHotels": ["Marriott", "Hilton", "Wyndham", "Choice"]
+                                                      },
+                                                      {
+                                                        "favoriteHotels": ["Marriott", "Hilton", "Wyndham"],
+                                                        "secondName": "Oleg"
+                                                      },
+                                                      {
+                                                        "hasDiscount": true
                                                       }
+                                                     ]
                                                     }
                                                     """)
                             }
