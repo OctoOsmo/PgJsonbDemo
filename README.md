@@ -1,7 +1,6 @@
 ## PgJsonbDemo
 
 This project provides an example of storing, processing a searchig on not-relational data in PostgreSQL through JPA and Hibernate technologies.
-Java annotation processor that generates static list of field names for annotated classes.
 
 ### Usage
 
