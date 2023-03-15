@@ -1,5 +1,18 @@
 ## PgJsonbDemo
 
+This project provides an example of storing, processing a searchig on not-relational data in PostgreSQL through JPA and Hibernate technologies.
+Java annotation processor that generates static list of field names for annotated classes.
+
+### Usage
+
+To run this priject follow these steps:
+* setup postgres
+  * run postgres
+  * create empty database
+  * specify connection string, user and password in properties.yml
+* Assuming you have JDK 17 run ./gradlew clean assembe command
+* Find location of newely built jar file and execute this command: java -jar PgJsonbDemo-0.0.1-SNAPSHOT.jar
+* Open swagger at http://localhost:8080/swagger-ui/index.html
 
 ### Json support in postgres
 * [JSON in PostgreSQL](https://bitnine.net/blog-postgresql/postgresql-internals-jsonb-type-and-its-indexes/)
