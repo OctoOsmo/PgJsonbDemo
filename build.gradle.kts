@@ -10,16 +10,17 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.0.2")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.3")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.0.3")
     implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
-    implementation("org.flywaydb:flyway-core:9.11.0")
+    implementation("org.flywaydb:flyway-core:9.15.2")
     // Jsonb support
     implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
     implementation("com.fasterxml.jackson.module:jackson-module-jakarta-xmlbind-annotations:2.14.2")
