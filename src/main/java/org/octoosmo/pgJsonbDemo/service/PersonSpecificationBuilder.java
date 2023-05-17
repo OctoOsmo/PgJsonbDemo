@@ -1,8 +1,8 @@
-package org.octoosmo.PgJsonbDemo.service;
+package org.octoosmo.pgJsonbDemo.service;
 
 import org.json.JSONObject;
-import org.octoosmo.PgJsonbDemo.entity.PersonEntity;
-import org.octoosmo.PgJsonbDemo.request.PersonSearchRequest;
+import org.octoosmo.pgJsonbDemo.entity.PersonEntity;
+import org.octoosmo.pgJsonbDemo.model.request.PersonSearchRequest;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.*;
@@ -14,7 +14,7 @@ public class PersonSpecificationBuilder {
     private static final String EMAIL = "email";
     private static final String ADDRESS = "address";
     private static final String PHONE = "phone";
-    private static final String CUSTOM_ATTRIBUTES_JSON = "custom_attributes_json";
+    private static final String CUSTOM_ATTRIBUTES_JSON = "customAttributesJson";
 
     public static Optional<Specification<PersonEntity>> build(PersonSearchRequest searchRequest) {
         var specifications = new ArrayList<Specification<PersonEntity>>();
@@ -24,7 +24,7 @@ public class PersonSpecificationBuilder {
         emailIn(searchRequest.emails()).ifPresent(specifications::add);
         addressIn(searchRequest.addresses()).ifPresent(specifications::add);
         phoneIn(searchRequest.phones()).ifPresent(specifications::add);
-        customAttributesIn(searchRequest.custom_attributes_json()).ifPresent(specifications::add);
+        customAttributesIn(searchRequest.customAttributesJson()).ifPresent(specifications::add);
         customAttributesIn(searchRequest.custom_attributes_jsons()).ifPresent(specifications::add);
 
         return specifications.stream().reduce(Specification::and);

@@ -1,4 +1,4 @@
-package org.octoosmo.PgJsonbDemo.response;
+package org.octoosmo.pgJsonbDemo.model.response;
 
 import java.util.Map;
 import java.util.UUID;
@@ -8,5 +8,5 @@ public record PersonResponse(UUID id,
                              String email,
                              String address,
                              String phone,
-                             Map<String, Object> custom_attributes_json) {
+                             Map<String, Object> customAttributesJson) {
 }

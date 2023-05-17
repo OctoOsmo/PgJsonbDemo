@@ -1,4 +1,4 @@
-package org.octoosmo.PgJsonbDemo.controller;
+package org.octoosmo.pgJsonbDemo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -6,13 +6,13 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.octoosmo.PgJsonbDemo.mapper.PersonMapper;
-import org.octoosmo.PgJsonbDemo.model.Person;
-import org.octoosmo.PgJsonbDemo.request.PersonCreateRequest;
-import org.octoosmo.PgJsonbDemo.request.PersonSearchRequest;
-import org.octoosmo.PgJsonbDemo.request.PersonUpdateRequest;
-import org.octoosmo.PgJsonbDemo.response.PersonResponse;
-import org.octoosmo.PgJsonbDemo.service.PersonService;
+import org.octoosmo.pgJsonbDemo.mapper.PersonMapper;
+import org.octoosmo.pgJsonbDemo.model.Person;
+import org.octoosmo.pgJsonbDemo.model.request.PersonCreateRequest;
+import org.octoosmo.pgJsonbDemo.model.request.PersonSearchRequest;
+import org.octoosmo.pgJsonbDemo.model.request.PersonUpdateRequest;
+import org.octoosmo.pgJsonbDemo.model.response.PersonResponse;
+import org.octoosmo.pgJsonbDemo.service.PersonService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,7 +27,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/person")
-@Tag(name = "person controller", description = "Person API")
+@Tag(name = "Person controller", description = "Person API")
 public class PersonController {
 
     private final PersonService personService;
@@ -66,7 +66,7 @@ public class PersonController {
                                                       "email":"alex@mail.com",
                                                       "address":"street",
                                                       "phone":"+0123456789",
-                                                      "custom_attributes_json":{
+                                                      "customAttributesJson":{
                                                         "favoriteHotels": ["Marriott", "Hilton", "Wyndham", "Choice"]
                                                       }
                                                     }
@@ -104,7 +104,7 @@ public class PersonController {
                                                       "emails":["alex@mail.com"],
                                                       "addresses":["street"],
                                                       "phones":["+0123456789"],
-                                                      "custom_attributes_json": {
+                                                      "customAttributesJson": {
                                                         "isPremium": true
                                                       },
                                                       "custom_attributes_jsons": [
@@ -162,7 +162,7 @@ public class PersonController {
                                                       "email":"alex@mail.com",
                                                       "address":"street 2",
                                                       "phone":"+0123456789",
-                                                      "custom_attributes_json":{
+                                                      "customAttributesJson":{
                                                         "additionalProp1":{"inner":"value2"},
                                                         "additionalProp2":{"inner":"value3"},
                                                         "additionalProp3":{}
@@ -184,7 +184,8 @@ public class PersonController {
                             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
             })
     public PersonResponse update(@RequestBody PersonUpdateRequest request, @PathVariable UUID id) {
-        var person = PersonMapper.INSTANCE.personUpdateRequestToPerson(request).withId(id);
+        var person = PersonMapper.INSTANCE.personUpdateRequestToPerson(request);
+        person.setId(id);
         person = personService.update(person);
         return PersonMapper.INSTANCE.personToPersonResponse(person);
     }

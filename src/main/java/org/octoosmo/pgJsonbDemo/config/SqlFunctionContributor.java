@@ -1,4 +1,4 @@
-package org.octoosmo.PgJsonbDemo.config;
+package org.octoosmo.pgJsonbDemo.config;
 
 import org.hibernate.boot.model.FunctionContributions;
 import org.hibernate.boot.model.FunctionContributor;

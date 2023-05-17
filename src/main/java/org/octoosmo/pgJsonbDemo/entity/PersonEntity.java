@@ -1,7 +1,8 @@
-package org.octoosmo.PgJsonbDemo.entity;
-import com.vladmihalcea.hibernate.type.json.JsonType;
+package org.octoosmo.pgJsonbDemo.entity;
+
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.Map;
 import java.util.UUID;
@@ -24,9 +25,9 @@ public class PersonEntity {
     @Column
     private String phone;
 
-    @Type(JsonType.class)
     @Column
-    private Map<String, Object> custom_attributes_json;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, Object> customAttributesJson;
 
     public UUID getId() {
         return id;
@@ -68,11 +69,11 @@ public class PersonEntity {
         this.phone = phone;
     }
 
-    public Map<String, Object> getCustom_attributes_json() {
-        return custom_attributes_json;
+    public Map<String, Object> getCustomAttributesJson() {
+        return customAttributesJson;
     }
 
-    public void setCustom_attributes_json(Map<String, Object> custom_attributes_json) {
-        this.custom_attributes_json = custom_attributes_json;
+    public void setCustomAttributesJson(Map<String, Object> customAttributesJson) {
+        this.customAttributesJson = customAttributesJson;
     }
 }

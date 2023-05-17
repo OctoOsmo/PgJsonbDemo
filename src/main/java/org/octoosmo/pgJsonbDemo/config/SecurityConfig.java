@@ -1,4 +1,4 @@
-package org.octoosmo.PgJsonbDemo.config;
+package org.octoosmo.pgJsonbDemo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

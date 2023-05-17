@@ -1,9 +1,9 @@
-package org.octoosmo.PgJsonbDemo.service;
+package org.octoosmo.pgJsonbDemo.service;
 
-import org.octoosmo.PgJsonbDemo.mapper.PersonEntityMapper;
-import org.octoosmo.PgJsonbDemo.model.Person;
-import org.octoosmo.PgJsonbDemo.repository.PersonRepository;
-import org.octoosmo.PgJsonbDemo.request.PersonSearchRequest;
+import org.octoosmo.pgJsonbDemo.mapper.PersonEntityMapper;
+import org.octoosmo.pgJsonbDemo.model.Person;
+import org.octoosmo.pgJsonbDemo.model.request.PersonSearchRequest;
+import org.octoosmo.pgJsonbDemo.repository.PersonRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +25,7 @@ public class PersonService {
     public Person find(UUID uuid) {
         return personRepository.findById(uuid)
                 .map(PersonEntityMapper.INSTANCE::personEntityToPerson)
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("Person with id = %s does not exist".formatted(uuid)));
     }
 
     @Transactional
@@ -37,8 +37,8 @@ public class PersonService {
 
     @Transactional
     public Person update(Person person) {
-        if (!personRepository.existsById(person.id())) {
-            throw new RuntimeException("Person with id = %s does not exist".formatted(person.id()));
+        if (!personRepository.existsById(person.getId())) {
+            throw new RuntimeException("Person with id = %s does not exist".formatted(person.getId()));
         }
         var personEntity = PersonEntityMapper.INSTANCE.personToPersonEntity(person);
         personEntity = personRepository.save(personEntity);

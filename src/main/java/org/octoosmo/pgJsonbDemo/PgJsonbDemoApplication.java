@@ -1,4 +1,4 @@
-package org.octoosmo.PgJsonbDemo;
+package org.octoosmo.pgJsonbDemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
