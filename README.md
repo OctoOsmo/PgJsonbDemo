@@ -34,3 +34,7 @@ To run this priject follow these steps:
 
 ### Java
 * [java-spi](https://www.baeldung.com/)
+
+### Hibernate 6
+* [Hibernate 6 - what's new and why it's important](https://jpa-buddy.com/blog/hibernate6-whats-new-and-why-its-important/)
+* [How to use PostgreSQL’s JSONB data type with Hibernate](https://thorben-janssen.com/persist-postgresqls-jsonb-data-type-hibernate/)
