@@ -38,3 +38,6 @@ To run this priject follow these steps:
 ### Hibernate 6
 * [Hibernate 6 - what's new and why it's important](https://jpa-buddy.com/blog/hibernate6-whats-new-and-why-its-important/)
 * [How to use PostgreSQL’s JSONB data type with Hibernate](https://thorben-janssen.com/persist-postgresqls-jsonb-data-type-hibernate/)
+
+### Jackson 
+* [Serialize Only Fields That Meet a Custom Criteria](https://www.baeldung.com/jackson-serialize-field-custom-criteria)
